@@ -19,10 +19,14 @@ contract Lottery{
      function random() public view returns(uint){
         return uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp,participants.length)));
      }
+     function reset() private{
+         participants = new address payable[](0);
+     }
      function selectWinner() public {
          require(msg.sender == master);
          require(participants.length >= 3);
-         participants[random()/(participants.length)].transfer(getBalance());
+         (payable(participants[random()%(participants.length)])).transfer(getBalance());
+         reset();     
      }
 
 
