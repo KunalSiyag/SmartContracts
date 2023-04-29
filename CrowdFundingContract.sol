@@ -45,7 +45,7 @@ contract CrowdFunding{
           require(deadline>block.timestamp && target <= raised,"Refund is not available");
           require(contributors[msg.sender]>0);
           (payable(msg.sender)).transfer(contributors[msg.sender]);
-          raised -= contributions[msg.sender];
+          raised -= contributors[msg.sender];
 
        }
         modifier onlyManager{
